@@ -1,0 +1,70 @@
+> library(tidyverse)
+> library(palmerpenguins)
+> glimpse(penguins)
+Rows: 344
+Columns: 8
+$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               <fct> male, female, female, NA, female, male, female, male…
+$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…
+> 
+> ggplot(penguins,
++        aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
++   geom_point() +
++   labs(x = "Flossengröße (mm)", y = "Körpermasse (g)")
+Warnmeldung:
+Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+> #Steigt die Masse mit der Flosse bei allen drei Arten? Ja. In jeder Farbgruppe wandern die Punkte nach rechts oben.
+> Schwerste Art: Gentoo. Sie liegt im Plot ganz oben rechts.
+Fehler: unerwartetes Symbol in "Schwerste Art"
+> #In Zeile 1 sind alle Punkte rot, in Zeile 2 hat jede Art eine eigene Farbe und es gibt eine Legende
+> ggplot(penguins, aes(x = species, y = body_mass_g)) + geom_point(color = "red")
+Warnmeldung:
+Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+> ggplot(penguins, aes(x = species, y = body_mass_g, color = species)) + geom_point()
+Warnmeldung:
+Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+> Es gibt einen Fehler, weil R die erste Zeile schon für fertig hält.
+Fehler: unerwartetes Symbol in "Es gibt"
+> library(tidyverse)
+> library(palmerpenguins)
+> 
+> # a) Zeile 1
+> ggplot(penguins, aes(x = species, y = body_mass_g)) + geom_point(color = "red")
+Warnmeldung:
+Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+> 
+> # a) Zeile 2
+> ggplot(penguins, aes(x = species, y = body_mass_g, color = species)) + geom_point()
+Warnmeldung:
+Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+> 
+> # b) Das + steht absichtlich am Zeilenanfang. Führe beide Zeilen aus.
+> ggplot(penguins, aes(x = body_mass_g))
+>   + geom_histogram(binwidth = 250)
+Error in `+.gg`:
+! Cannot use `+` with a single argument.
+ℹ Did you accidentally put `+` on a new line?
+Run `rlang::last_trace()` to see where the error occurred.
+> ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
++   geom_point() +
++   geom_smooth() +
++   labs(x = "Schnabellänge (mm)", y = "Schnabeltiefe (mm)")
+`geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+Warnmeldungen:
+1: Removed 2 rows containing non-finite outside the scale range (`stat_smooth()`). 
+2: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+> #R führt eine Zeile aus, sobald sie für sich vollständig ist. Endet sie mit +, weiß R, dass noch etwas folgt, und liest die nächste Zeile mit. Steht das + erst am Anfang der nächsten Zeile, ist die erste Zeile schon abgeschlossen und wird ausgeführt
+> #Mit <- bekommt ein Wert einen Namen, den man später wiederverwenden kann
+> save.image("C:\\Users\\teodo\\OneDrive\\Documents\\hü")
+> 
